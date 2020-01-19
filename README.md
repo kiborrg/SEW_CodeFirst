@@ -1,8 +1,8 @@
-#Title
+# Title
 SEW is a web-application to search information based on the Code First method and implementation of the Factory pattern. 
 SEW provides users with the ability to search for information on the Web or in their own database of previously found sources.
 
-#Structure
+# Structure
 The project includes:
 - **HomeController**: Main controller;
 - **SearchContext**: Database context;
@@ -24,15 +24,16 @@ Data is searched asynchronously. The code will show the synchronous variations o
 
 The basis for all the search engines described is creating a request and receiving a response.
 
-var request = WebRequest.Create (url);
+var request = WebRequest.Create(url);
 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
 ## Google CustomSearch
 It is possible to access the GoogleCustomSearch API through the package that is plugged into NuGet or by the link:
 https://www.googleapis.com/customsearch/v1?key=**YOUR_API_KEY**&cx=**YOUR_CX_KEY**&q=**SEARCH_QUERY**,
-where **YOUR_API_KEY** is the key issued during registration of the search engine,
-**YOUR_CX_KEY** - ID of a registered search engine,
-**SEARCH_QUERY** is the search string.
+where 
+- **YOUR_API_KEY** is the key issued during registration of the search engine,
+- **YOUR_CX_KEY** - ID of a registered search engine,
+- **SEARCH_QUERY** is the search string.
 
 The response comes in the form of a JSON object. Its structure is available at https://developers.google.com/custom-search/v1/cse/list.
 Search results are stored as a list in the **item** property. Search results can be obtained using foreach:
@@ -53,9 +54,10 @@ where jsonData is a dynamic JSON object
 It is possible to access the Yandex.XML API by using the POST or GET method link. For the POST method, you need to generate a request in XML format of a certain structure. For the GET method, only a link string is required.
 The project uses the GET method. The link is formed as follows:
 https://yandex.com/search/xml?l10n=en&user=**USER_NAME**&key=**YOUR_API_KEY**&query=**SEARCH_QUERY**,
-where **USER_NAME** is the name of the user who received the key,
-**YOUR_API_KEY** - issued key,
-**SEARCH_QUERY** is the search string.
+where 
+- **USER_NAME** is the name of the user who received the key,
+- **YOUR_API_KEY** - issued key,
+- **SEARCH_QUERY** is the search string.
 A more detailed structure can be studied on the official website.
 The answer comes in XML format. When registering a key for a search engine (https://xml.yandex.ru/), the response structure will be shown.
 After receiving the XML document with the search results, it is required to parse it.
@@ -96,8 +98,10 @@ public static string GetValue(XElement group, string name)
 The Bing Search API is provided upon registration with Microsoft Azure. Trial version is available for use during the week.
 You can access the Bing Search API using the link:
 https://api.cognitive.microsoft.com/bing/v5.0/search?q=**SEARCH_QUERY**,
-where **SEARCH_QUERY** is the search string.
-Unlike Google and Yandex, the Bing Search API key is inserted into the request header
+where 
+- **SEARCH_QUERY** is the search string.
+
+Unlike Google and Yandex, the Bing Search API key is inserted into the request header.
 request.Headers["Ocp-Apim-Subscription-Key"] = Engine.KeyAPI;
 
 The answer comes in the form of a JSON object. Its structure is presented at https://docs.microsoft.com/en-us/azure/cognitive-services/bing-web-search/quickstarts/csharp.
@@ -122,7 +126,7 @@ There are 2 algorithms for adding a new search engine:
 2. Adding an indescribable search engine - the search engine is not described, you need to write an algorithm for obtaining and processing search results.
 
 ## Adding a new key for one of the described search engines
-To apply the new search settings for the described search engine, you need to insert an entry in the database into the table ** Engines **
+To apply the new search settings for the described search engine, you need to insert an entry in the database into the table **Engines**
 
 ## Adding an indescribable search engine
 To implement a search for a previously undescribed system, you need:
