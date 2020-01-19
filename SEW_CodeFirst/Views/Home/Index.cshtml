@@ -1,0 +1,28 @@
+﻿@model List<SEW_CodeFirst.Models.DTO.SearchResult>
+<br />
+@{
+    ViewData["Title"] = "Web search";
+}
+
+<form class="form-inline" action="@Url.Action("Index")" method="post">
+    <input style="width: 90%;margin-left:auto;margin-right:auto ;border: groove; height: 40px; " class="form-control" id="searchVal" autofocus="autofocus" type="text" name="searchVal" placeholder="Search in web" required />
+    <button type="submit" style="height: 40px; margin-left:auto" class="btn btn-success">Search it!</button>
+    <br />
+
+    @if (Model != null)
+    {
+        var a = Model.FirstOrDefault(i => i.Query != null);
+        <h2>Results for "@a.Query"</h2>
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li style="width:500px">
+                    <a href="@item.Link" style="color:blue">@item.Title</a><br />
+                    <span style="font-size:15px;color:green">@item.Link</span><br />
+                    <span style="color:gray;">@item.Snippet</span>
+                </li>
+            }
+            
+        </ul>
+    }
+</form>
